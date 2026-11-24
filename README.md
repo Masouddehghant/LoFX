@@ -180,7 +180,24 @@ The application processes variant annotation data prepared in the format expecte
 - Pre-annotated variant tables including: Gene.refGene, ExonicFunc.refGene, ExAC_ALL, 1000g2015aug_ALL, phastCons100way_vertebrate, SiPhy_29way_logOdds, CADD_phred, Eigen-phred_coding, GenoCanyon_score
 
 
+LoFX expects a variant table annotated with ANNOVAR (GRCh38). The easiest way to prepare it is the helper script included in this repository:
 
+    bash prepare_lofx_input.sh input.vcf /path/to/annovar output_prefix
+
+This script downloads the required databases (first run only) and annotates the VCF
+with RefSeq gene models (refGene), ExAC, 1000 Genomes and dbNSFP v4.7.
+Upload the resulting file `output_prefix.hg38_multianno.txt` to the LoFX web interface.
+
+Required columns: Gene.refGene, ExonicFunc.refGene, ExAC_ALL, 1000g2015aug_ALL,
+phastCons100way_vertebrate, SiPhy_29way_logOdds, CADD_phred, Eigen-phred_coding,
+GenoCanyon_score. LOEUF is added automatically from the gene name.
+Only stop-gain, stop-loss and start-loss variants are scored.
+
+Notes:
+- ANNOVAR is free for academic use but requires registration.
+- The dbNSFP database is large (tens of GB); the first download may take several hours.
+- Files already annotated with ANNOVAR in other projects can be uploaded directly,
+  as long as they contain the required columns.
 ---
 
 ## Output
